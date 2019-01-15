@@ -73,4 +73,4 @@ Rule:
 
 # final
 - GEOIP,CN,DIRECT
-- FINAL,,Proxy
+- FINAL, ,Proxy
