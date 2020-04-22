@@ -1,48 +1,54 @@
-#---------------------------------------------------#
-##
-## file location :
-## Linux,MacOS--$HOME/.config/clash/config.yml
-## Windows--C:\Users\username\.config\clash\config.yml
-## 
-#---------------------------------------------------#
-
-# port of HTTP
 port: 7890
-
-# port of SOCKS5
 socks-port: 7891
-
-# redir port for Linux and macOS
-# redir-port: 7892
-
-allow-lan: false
-
-# Rule / Global/ Direct (default is Rule)
+redir-port: 7892
+allow-lan: true
 mode: Rule
-
-# set log level to stdout (default is info)
-# info / warning / error / debug
-log-level: info
-
-# A RESTful API for clash
+log-level: silent
 external-controller: 127.0.0.1:9090
-
-# Secret for RESTful API (Optional)
-# secret: ""
-
+secret: ""
 dns:
-  enable: true # set true to enable dns (default is false)
-  ipv6: false # default is false
-  listen: 0.0.0.0:53
-  # enhanced-mode: redir-host
+  enable: true
+  ipv6: false
   nameserver:
-    - 119.29.29.29
+    - 114.114.114.114
     - 223.5.5.5
-    - tls://dns.rubyfish.cn:853 # dns over tls
-  fallback: # concurrent request with nameserver, fallback used when GEOIP country isn't CN
     - 8.8.8.8
-    - 1.1.1.1
-    
+  fallback:
+    - tls://1.0.0.1:853
+    - tls://dns.google:853
+  fallback-filter:
+    geoip: true
+    ipcidr:
+      - 240.0.0.0/4
+cfw-bypass:
+  - localhost
+  - 127.*
+  - 10.*
+  - 172.16.*
+  - 172.17.*
+  - 172.18.*
+  - 172.19.*
+  - 172.20.*
+  - 172.21.*
+  - 172.22.*
+  - 172.23.*
+  - 172.24.*
+  - 172.25.*
+  - 172.26.*
+  - 172.27.*
+  - 172.28.*
+  - 172.29.*
+  - 172.30.*
+  - 172.31.*
+  - 192.168.*
+  - <local>
+cfw-latency-timeout: 3000
+cfw-latency-url: http://www.gstatic.com/generate_204
+cfw-conn-break-strategy:
+  proxy: none
+  profile: true
+  mode: false
+cfw-child-process: []
 Proxy:
 
 # shadowsocks
@@ -63,13 +69,6 @@ Proxy Group:
 - { name: "Proxy", type: select, proxies: ["socks", "auto"] }
 
 Rule:
-- DOMAIN-SUFFIX,local,DIRECT
-- IP-CIDR,127.0.0.0/8,DIRECT
-- IP-CIDR,172.16.0.0/12,DIRECT
-- IP-CIDR,192.168.0.0/16,DIRECT
-- IP-CIDR,10.0.0.0/8,DIRECT
-- IP-CIDR,17.0.0.0/8,DIRECT
-- IP-CIDR,100.64.0.0/10,DIRECT
 
 # final
 - GEOIP,CN,DIRECT
