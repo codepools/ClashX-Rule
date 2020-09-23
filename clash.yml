@@ -1,3 +1,4 @@
+#clash内核1.0 有些关键字更换了书写方式 2020年9月23日
 port: 7890
 socks-port: 7891
 redir-port: 7892
@@ -49,7 +50,7 @@ cfw-conn-break-strategy:
   profile: true
   mode: false
 cfw-child-process: []
-Proxy:
+proxies:
 
 # shadowsocks
 # The types of cipher are consistent with go-shadowsocks2
@@ -57,7 +58,7 @@ Proxy:
 # socks5
 - { name: "socks", type: socks5, server: 127.0.0.1, port: 1080 }
 
-Proxy Group:
+proxy-groups:
 # url-test select which proxy will be used by benchmarking speed to a URL.
 - { name: "auto", type: url-test, proxies: ["socks"], url: "http://www.gstatic.com/generate_204", interval: 300 }
 
@@ -68,7 +69,7 @@ Proxy Group:
 # you can use RESTful API to switch proxy, is recommended for use in GUI.
 - { name: "Proxy", type: select, proxies: ["socks", "auto"] }
 
-Rule:
+rules:
 
 # final
 - GEOIP,CN,DIRECT
